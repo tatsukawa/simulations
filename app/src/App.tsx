@@ -5,8 +5,9 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import Home from './pages/Home';
-import KuramotoModel from './pages/KuramotoModel';
+import HomePage from './pages/HomePage';
+import KuramotoModelPage from './pages/KuramotoModelPage';
+import IsingModelPage from './pages/IsingModelPage';
 import './App.scss';
 
 function App() {
@@ -27,23 +28,37 @@ function App() {
               </a>
             </div>
 
-            <div id="navbarBasicExample" className="navbar-menu">
+            <div className="navbar-menu">
               <div className="navbar-start">
                 <Link to="/kuramoto-model" className="navbar-item"> 蔵本モデル </Link>
+                <Link to="/ising-model" className="navbar-item"> イジングモデル </Link>
               </div>
             </div>
           </nav>        
         </header>
 
+        <div className="container space">
         <Switch>
           <Route exact path="/">
-            <Home />
+            <HomePage />
           </Route>
           <Route path="/kuramoto-model">
-            <KuramotoModel />
+            <KuramotoModelPage />
+          </Route>
+          <Route path="/ising-model">
+            <IsingModelPage />
           </Route>
         </Switch>
+        </div>
       </Router>
+
+      <footer className="footer">
+        <div className="content has-text-centered">
+          <p>
+            © 2021 tatsukawa 
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
