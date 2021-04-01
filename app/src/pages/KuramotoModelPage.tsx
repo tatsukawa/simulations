@@ -74,86 +74,81 @@ const KuramotoModelPage = () => {
         </div>
 
         <div className="column is-2 is-offset-1">
-          <div className="field">
-            <label className="label">ノード数</label>
-
-            <div className="field is-horizontal">
-              <div className="field-label is-normal">
-                <label className="label"><TeX math="N="></TeX></label>
+          <div className="card">
+          <div className="card-content">
+            <div className="field">
+              <label className="label">ノード数</label>
+  
+              <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                  <label className="label"><TeX math="N="></TeX></label>
+                </div>
+                <div className="field-body">
+                  <div className="field">
+                    <div className="control">
+                      <input className="input" type="number" placeholder="10" min="1" max="100" defaultValue={N} onChange={updateN} />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="field-body">
-                <div className="field">
-                  <div className="control">
-                    <input className="input" type="number" placeholder="10" min="1" max="100" defaultValue={N} onChange={updateN} />
+  
+            </div>
+  
+            <div className="field">
+              <label className="label">結合強度</label>
+  
+              <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                  <label className="label"><TeX math="K="></TeX></label>
+                </div>
+                <div className="field-body">
+                  <div className="field">
+                    <div className="control">
+                      <input className="input" type="number" placeholder="10.0" min="0" max="100" defaultValue={K} onChange={updateK} />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
+  
+            <div className="field">
+              <label className="label">
+                コーシー分布<br />
+                <TeX math="g(\omega; \omega_0, \gamma)= \frac{1}{\pi} \frac{\gamma}{(\omega - \omega_0)^2 + \gamma^2}" />
+              </label>
+  
+              <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                  <label className="label"><TeX math="\omega_0="></TeX></label>
+                </div>
+                <div className="field-body">
+                  <div className="field">
+                    <div className="control">
+                      <input className="input" type="number" placeholder="0.0" min="-10" max={10} defaultValue={0} onChange={updateW0} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                  <label className="label"><TeX math="\gamma="></TeX></label>
+                </div>
+                <div className="field-body">
+                  <div className="field">
+                    <div className="control">
+                      <input className="input" type="number" placeholder="0.0" min="-10" max="10" defaultValue={1.0} onChange={updateGamma} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className="field">
-            <label className="label">結合強度</label>
-
-            <div className="field is-horizontal">
-              <div className="field-label is-normal">
-                <label className="label"><TeX math="K="></TeX></label>
-              </div>
-              <div className="field-body">
-                <div className="field">
-                  <div className="control">
-                    <input className="input" type="number" placeholder="10.0" min="0" max="100" defaultValue={K} onChange={updateK} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="field">
-            <label className="label">
-              コーシー分布<br />
-              <TeX math="g(\omega; \omega_0, \gamma)= \frac{1}{\pi} \frac{\gamma}{(\omega - \omega_0)^2 + \gamma^2}" />
-            </label>
-
-            <div className="field is-horizontal">
-              <div className="field-label is-normal">
-                <label className="label"><TeX math="\omega_0="></TeX></label>
-              </div>
-              <div className="field-body">
-                <div className="field">
-                  <div className="control">
-                    <input className="input" type="number" placeholder="0.0" min="-10" max={10} defaultValue={0} onChange={updateW0} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="field is-horizontal">
-              <div className="field-label is-normal">
-                <label className="label"><TeX math="\gamma="></TeX></label>
-              </div>
-              <div className="field-body">
-                <div className="field">
-                  <div className="control">
-                    <input className="input" type="number" placeholder="0.0" min="-10" max="10" defaultValue={1.0} onChange={updateGamma} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div className="field is-grouped">
-
-            <div className="control">
-              <button className="button is-success" onClick={initModel}>初期化</button>
-            </div>
-            <div className="control">
-              <button className={"button is-link " + (isRunning ? "is-loading" : "")} onClick={startTimer}>実行</button>
-            </div>
-            <div className="control">
-              <button className="button is-danger" onClick={pauseTimer}>停止</button>
-            </div>
+          <footer className="card-footer">
+            <button className="card-footer-item button is-success" onClick={initModel}>初期化</button>
+            <button className={"card-footer-item button is-link " + (isRunning ? "is-loading" : "")} onClick={startTimer}>実行</button>
+            <button className="card-footer-item button is-danger" onClick={pauseTimer}>停止</button>
+          </footer>
           </div>
         </div>
       </div>

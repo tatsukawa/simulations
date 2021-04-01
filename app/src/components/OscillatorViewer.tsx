@@ -5,6 +5,8 @@ import Oscillator from '../models/Oscillator';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Dict from '../models/Dict';
 import CauchyDist from '../models/CauchyDist';
+import 'katex/dist/katex.min.css';
+import TeX from '@matejmazur/react-katex';
 
 interface OscillatorProps {
 }
@@ -193,9 +195,11 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
       <div>
         <div className="columns">
           <div className="column">
+            <h3>振動子と秩序変数</h3>
             <canvas ref={this.canvasRef} width="300" height="300" />
           </div>
           <div className="column">
+            <h3><TeX math="r(t)"></TeX> の時間変化</h3>
             <LineChart
               width={360}
               height={300}
@@ -215,6 +219,7 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
             </LineChart>
           </div>
           <div className="column">
+            <h3>コーシー分布</h3>
             <LineChart
               width={360}
               height={300}
