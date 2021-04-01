@@ -201,7 +201,7 @@ const KuramotoModelPage = () => {
             <TeX math="\theta_i^t"></TeX> は時刻 <TeX math="t"></TeX> における <TeX math="i"></TeX> 番目の振動子の位相、<TeX math="\delta t"></TeX> は時間幅である。これを愚直に実装すると、1ステップあたりの計算量は <TeX math="O(N^2)"></TeX> になる。
           </p>
           <p>
-            (2) 式に前進オイラー法を適用すると、
+            (3) 式に前進オイラー法を適用すると、
             <TeX math="\theta_{i}^{t} = \theta_i^{t-1} + \delta t \times \left\{ \omega_i + K \times r(t) \sin{\left( \varphi(t) - \theta_i(t) \right) } \right\}" block></TeX>
             が得られる。この場合、1ステップあたりの計算量は <TeX math="O(N)"></TeX> になる。
           </p>
