@@ -3,11 +3,8 @@ import './OscillatorViewer.scss';
 import KuramotoModel from '../models/KuramotoModel';
 import Oscillator from '../models/Oscillator';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-
-type Dict = {
-    [key: string]: number
-};
+import Dict from '../models/Dict';
+import CauchyDist from '../models/CauchyDist';
 
 interface OscillatorProps {
 }
@@ -46,6 +43,7 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
 
   init() {
     let model = new KuramotoModel(this.state.model.N, this.state.model.K);
+    model.g = new CauchyDist(this.state.model.g.omega0, this.state.model.g.gamma);
     this.setState({
       model: model,
       data: [],
@@ -54,8 +52,11 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
   }
 
   setN(N: number) {
+    let model = new KuramotoModel(N, this.state.model.K);
+    model.g = new CauchyDist(this.state.model.g.omega0, this.state.model.g.gamma);
+
     this.setState({
-      model: new KuramotoModel(N, this.state.model.K),
+      model: model
     });
   }
 
@@ -65,6 +66,21 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
       model: this.state.model 
     });
   }
+
+  setW0(w0: number) {
+    this.state.model.updateW0(w0);
+    this.setState({
+      model: this.state.model 
+    });
+  }
+
+  setGamma(gamma: number) {
+    this.state.model.updateGamma(gamma);
+    this.setState({
+      model: this.state.model 
+    });
+  }
+
   
   update() {
     this.state.model.run();
@@ -144,8 +160,6 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
   }
 
   componentDidUpdate(prevProps: OscillatorProps, prevState: OscillatorState) {
-    console.log(this.state);
-
     const canvas: any = this.canvasRef.current;
                       const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
@@ -179,12 +193,12 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
       <div>
         <div className="columns">
           <div className="column">
-            <canvas ref={this.canvasRef} width="300" height="300"/>
+            <canvas ref={this.canvasRef} width="300" height="300" />
           </div>
           <div className="column">
             <LineChart
-              width={500}
-              height={400}
+              width={360}
+              height={300}
               data={Array.from(this.state.data)}
               margin={{
                 top: 5,
@@ -195,9 +209,28 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
             >
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="iter" label={{ value: "時間 t", position: "insideBottomRight", dy: 10}} />
-              <YAxis label={{ value: "z", position: "insideLeft", angle: -90,   dy: -10}} domain={[0, 1]} />
+              <YAxis label={{ value: "r(t)", position: "insideLeft", angle: -90,   dy: -10}} domain={[0, 1]} />
               <Tooltip />
               <Line type="monotone" dot={false} dataKey="order_param" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+          </div>
+          <div className="column">
+            <LineChart
+              width={360}
+              height={300}
+              data={Array.from(this.state.model.g.dist(-10, 10, 100))}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="x" label={{ value: "ω", position: "insideBottomRight", dy: 10}} domain={[-10, 10]} />
+              <YAxis label={{ value: "g(ω; ω0, γ)", position: "insideLeft", angle: -90,   dy: -10}} domain={[0, 1]} />
+              <Tooltip />
+              <Line type="monotone" dot={false} dataKey="y" stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
           </div>
         </div>
