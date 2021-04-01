@@ -34,7 +34,7 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
     this.center = {x:0, y:0};
     this.radius = 0;
 
-    let model = new KuramotoModel(10, 2);
+    let model = new KuramotoModel(10, 2, 0, 1);
 
     this.state = {
       model: model,
@@ -44,8 +44,13 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
   }
 
   init() {
-    let model = new KuramotoModel(this.state.model.N, this.state.model.K);
-    model.g = new CauchyDist(this.state.model.g.omega0, this.state.model.g.gamma);
+    let model = new KuramotoModel(
+      this.state.model.N, 
+      this.state.model.K, 
+      this.state.model.g.omega0, 
+      this.state.model.g.gamma
+    );
+
     this.setState({
       model: model,
       data: [],
@@ -54,8 +59,12 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
   }
 
   setN(N: number) {
-    let model = new KuramotoModel(N, this.state.model.K);
-    model.g = new CauchyDist(this.state.model.g.omega0, this.state.model.g.gamma);
+    let model = new KuramotoModel(
+      N, 
+      this.state.model.K, 
+      this.state.model.g.omega0, 
+      this.state.model.g.gamma
+    );
 
     this.setState({
       model: model
@@ -70,16 +79,28 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
   }
 
   setW0(w0: number) {
-    this.state.model.updateW0(w0);
+    let model = new KuramotoModel(
+      this.state.model.N, 
+      this.state.model.K, 
+      w0,
+      this.state.model.g.gamma
+    );
+
     this.setState({
-      model: this.state.model 
+      model: model
     });
   }
 
   setGamma(gamma: number) {
-    this.state.model.updateGamma(gamma);
+    let model = new KuramotoModel(
+      this.state.model.N, 
+      this.state.model.K, 
+      this.state.model.g.omega0, 
+      gamma
+    );
+
     this.setState({
-      model: this.state.model 
+      model: model
     });
   }
 

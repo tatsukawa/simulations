@@ -14,7 +14,7 @@ class KuramotoModel {
     public iteration: number;
     public g: CauchyDist;
 
-    constructor(N: number, K: number) {
+    constructor(N: number, K: number, w0: number, gamma: number) {
         this.N = N;
         this.K = K;
         this.dt = 0.01;
@@ -22,7 +22,7 @@ class KuramotoModel {
         this.limit_size = 100;
         this.oscillators = [];
         this.record_order_param = [];
-        this.g = new CauchyDist(0.0, 1.0);
+        this.g = new CauchyDist(w0, gamma);
 
         for(let i = 0; i < N; i++) {
             this.oscillators.push(new Oscillator(this.uniformDist(0, 2*Math.PI), 1, this.g.sample()));
@@ -38,14 +38,6 @@ class KuramotoModel {
 
     updateK(K: number) {
         this.K = K;
-    }
-
-    updateW0(w0: number) {
-        this.g.omega0 = w0;        
-    }
-
-    updateGamma(gamma: number) {
-        this.g.gamma = gamma;        
     }
 
     uniformDist(low: number , high: number): number {
@@ -132,8 +124,8 @@ class KuramotoModel {
         /*
             $g(\omega)$ がコーシー分布の場合に振動子数を無限大に飛ばしたときの $r$ の値。
         */
-        let Kc: number = 2 * this.g.gamma;
-        return (Kc < this.K ? 0 : Math.sqrt(1 - (this.K / Kc)));
+        let Kc: number = 2 / (Math.PI * this.g.prob(0));
+        return (Kc < this.K ? Math.sqrt(1 - (Kc / this.K)) : 0);
     }
 }
 
