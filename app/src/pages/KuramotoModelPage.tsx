@@ -162,7 +162,7 @@ const KuramotoModelPage = () => {
             <TeX math="\theta_i, \omega_i"></TeX> は <TeX math="i"></TeX> 番目の振動子の位相と自然振動数、<TeX math="K"></TeX> は結合強度を意味する。
 
             自然振動数 <TeX math="\omega_i"></TeX> は確率密度関数 <TeX math="g(\omega)"></TeX> に従う。
-            今回のシミュレーションでは、コーシー分布 <TeX math="g(\omega; \omega_0, \gamma)"></TeX> を考える。
+            今回は、コーシー分布 <TeX math="g(\omega; \omega_0, \gamma)"></TeX> を考える。
           </p>
 
           <p>
@@ -186,8 +186,8 @@ const KuramotoModelPage = () => {
               \end{aligned}
               " block />
             この導出は、方程式 
-            <TeX math="r(t)e^{\sqrt{-1} (\varphi - \theta_i)}=\frac{1}{N}\sum_{j=1}^N e^{\sqrt{-1}(\theta_j - \theta_i)}" block></TeX>
-            の虚部だけを考えると、
+            <TeX math="r(t)e^{\sqrt{-1} (\varphi(t) - \theta_i(t))}=\frac{1}{N}\sum_{j=1}^N e^{\sqrt{-1}(\theta_j(t) - \theta_i(t))}" block></TeX>
+            の虚部だけ考えると、
             <TeX math="r(t)\sin{(\varphi(t) - \theta_i(t))} = \frac{1}{N}\sum_{j=1}^N \sin{(\theta_j(t) - \theta_i(t))}" block></TeX>
             が得られるので、これを (1) 式に代入すれば良い。
           </p>
