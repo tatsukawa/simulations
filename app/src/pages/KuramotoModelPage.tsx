@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import 'katex/dist/katex.min.css';
 import TeX from '@matejmazur/react-katex';
 import OscillatorViewer from '../components/OscillatorViewer';
-import KuramotoModel from '../models/KuramotoModel';
-import { updateSourceFile } from 'typescript';
 import './KuramotoModelPage.scss';
 
 const KuramotoModelPage = () => {
@@ -156,16 +154,16 @@ const KuramotoModelPage = () => {
       <div className="columns is-variable">
         <div className="column">
           <h2>蔵本モデルの概要</h2>
-          <p>
+          <div>
             <TeX math="N" /> 体の振動子からなる蔵本モデルは次の微分方程式で表される。
             <TeX math="\frac{d\theta_i(t)}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^N \sin{( \theta_j(t) - \theta_i(t) ) }, \qquad i=1,2, ..., N \tag{1}" block />
             <TeX math="\theta_i, \omega_i"></TeX> は <TeX math="i"></TeX> 番目の振動子の位相と自然振動数、<TeX math="K"></TeX> は結合強度を意味する。
 
             自然振動数 <TeX math="\omega_i"></TeX> は確率密度関数 <TeX math="g(\omega)"></TeX> に従う。
             今回は、コーシー分布 <TeX math="g(\omega; \omega_0, \gamma)"></TeX> を考える。
-          </p>
+          </div>
 
-          <p>
+          <div>
             次に秩序変数  <TeX math="z" /> を定義する。
             <TeX math="
               \begin{aligned} 
@@ -176,9 +174,9 @@ const KuramotoModelPage = () => {
             </TeX>
             <TeX math="r(t)"></TeX> の大きさを見ることで、振動子が同期しているかどうかが分かる。
             <TeX math="r(t)"></TeX> が 1 に近いほど同期しており、0 に近いほど同期していない事を表している。
-          </p>
+          </div>
 
-          <p>
+          <div>
             秩序変数を使って、(1) 式を次のように書き直すことができる。
             <TeX math="
               \begin{aligned}
@@ -190,21 +188,21 @@ const KuramotoModelPage = () => {
             の虚部だけ考えると、
             <TeX math="r(t)\sin{(\varphi(t) - \theta_i(t))} = \frac{1}{N}\sum_{j=1}^N \sin{(\theta_j(t) - \theta_i(t))}" block></TeX>
             が得られるので、これを (1) 式に代入すれば良い。
-          </p>
+          </div>
 
           <h2>数値シミュレーション</h2>
-          <p>
+          <div>
             常微分方程式の数値解法の一つにオイラー法がある。
             (1) 式に前進オイラー法を適用すると、
             <TeX math="\theta_{i}^{t} = \theta_i^{t-1} + \delta t \times \left\{ \omega_i + \frac{K}{N}\sum_{j=1}^N \sin{(\theta_j^{t-1} - \theta_i^{t-1})} \right\}" block></TeX>
             が得られる。
             <TeX math="\theta_i^t"></TeX> は時刻 <TeX math="t"></TeX> における <TeX math="i"></TeX> 番目の振動子の位相、<TeX math="\delta t"></TeX> は時間幅である。これを愚直に実装すると、1ステップあたりの計算量は <TeX math="O(N^2)"></TeX> になる。
-          </p>
-          <p>
+          </div>
+          <div>
             (3) 式に前進オイラー法を適用すると、
             <TeX math="\theta_{i}^{t} = \theta_i^{t-1} + \delta t \times \left\{ \omega_i + K \times r(t) \sin{\left( \varphi(t) - \theta_i(t) \right) } \right\}" block></TeX>
             が得られる。この場合、1ステップあたりの計算量は <TeX math="O(N)"></TeX> になる。
-          </p>
+          </div>
 
           <h2>参考</h2>
           <ul>

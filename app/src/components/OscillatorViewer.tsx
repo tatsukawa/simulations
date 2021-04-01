@@ -1,8 +1,8 @@
-import React, {createRef, useEffect, useRef} from 'react';
+import React from 'react';
 import './OscillatorViewer.scss';
 import KuramotoModel from '../models/KuramotoModel';
 import Oscillator from '../models/Oscillator';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import Dict from '../models/Dict';
 import CauchyDist from '../models/CauchyDist';
 import 'katex/dist/katex.min.css';

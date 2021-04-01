@@ -1,7 +1,4 @@
-import React from 'react';
 import 'katex/dist/katex.min.css';
-import TeX from '@matejmazur/react-katex';
-import OscillatorViewer from '../components/OscillatorViewer'
 import Oscillator from './Oscillator';
 import CauchyDist from './CauchyDist';
 import Dict from './Dict';
