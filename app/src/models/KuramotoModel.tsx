@@ -94,7 +94,8 @@ class KuramotoModel {
 
         this.record_order_param.push({
             iter: this.iteration * this.dt,
-            order_param: this.calcOrderParam()
+            order_param: this.calcOrderParam(),
+            analytical_sol: this.calcR()
         });
 
         if (this.record_order_param.length > this.limit_size) {
@@ -121,12 +122,21 @@ class KuramotoModel {
 
         this.record_order_param.push({
             iter: this.iteration * this.dt,
-            order_param: this.calcOrderParam()
+            order_param: this.calcOrderParam(),
+            analytical_sol: this.calcR()
         });
 
         if (this.record_order_param.length > this.limit_size) {
             this.record_order_param.shift();
         }
+    }
+
+    calcR(): number {
+        /*
+            $g(\omega)$ がコーシー分布の場合に振動子数を無限大に飛ばしたときの $r$ の値。
+        */
+        let Kc: number = 2 * this.g.gamma;
+        return (Kc < this.K ? 0 : Math.sqrt(1 - (this.K / Kc)));
     }
 }
 

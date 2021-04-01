@@ -34,7 +34,7 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
     this.center = {x:0, y:0};
     this.radius = 0;
 
-    let model = new KuramotoModel(10, 10);
+    let model = new KuramotoModel(10, 2);
 
     this.state = {
       model: model,
@@ -209,13 +209,13 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
                 right: 30,
                 left: 20,
                 bottom: 5,
-              }}
-            >
+              }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="iter" label={{ value: "時間 t", position: "insideBottomRight", dy: 10}} />
               <YAxis label={{ value: "r(t)", position: "insideLeft", angle: -90,   dy: -10}} domain={[0, 1]} />
               <Tooltip />
               <Line type="monotone" dot={false} dataKey="order_param" stroke="#8884d8" activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="analytical_sol" stroke="#82ca9d" strokeDasharray="3 4 5 2" />
             </LineChart>
           </div>
           <div className="column">
@@ -229,8 +229,7 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
                 right: 30,
                 left: 20,
                 bottom: 5,
-              }}
-            >
+              }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="x" label={{ value: "ω", position: "insideBottomRight", dy: 10}} domain={[-10, 10]} />
               <YAxis label={{ value: "g(ω; ω0, γ)", position: "insideLeft", angle: -90,   dy: -10}} domain={[0, 1]} />
