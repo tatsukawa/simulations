@@ -75,11 +75,11 @@ const KuramotoModelPage = () => {
           <div className="card">
           <div className="card-content">
             <div className="field">
-              <label className="label">ノード数</label>
+              <label className="label">振動子数</label>
   
               <div className="field is-horizontal">
                 <div className="field-label is-normal">
-                  <label className="label"><TeX math="N="></TeX></label>
+                  <label className="label"><TeX math="N="/></label>
                 </div>
                 <div className="field-body">
                   <div className="field">
@@ -97,7 +97,7 @@ const KuramotoModelPage = () => {
   
               <div className="field is-horizontal">
                 <div className="field-label is-normal">
-                  <label className="label"><TeX math="K="></TeX></label>
+                  <label className="label"><TeX math="K="/></label>
                 </div>
                 <div className="field-body">
                   <div className="field">
@@ -112,12 +112,11 @@ const KuramotoModelPage = () => {
             <div className="field">
               <label className="label">
                 コーシー分布<br />
-                <TeX math="g(\omega; \omega_0, \gamma)= \frac{1}{\pi} \frac{\gamma}{(\omega - \omega_0)^2 + \gamma^2}" />
               </label>
   
               <div className="field is-horizontal">
                 <div className="field-label is-normal">
-                  <label className="label"><TeX math="\omega_0="></TeX></label>
+                  <label className="label"><TeX math="\omega_0="/></label>
                 </div>
                 <div className="field-body">
                   <div className="field">
@@ -130,7 +129,7 @@ const KuramotoModelPage = () => {
   
               <div className="field is-horizontal">
                 <div className="field-label is-normal">
-                  <label className="label"><TeX math="\gamma="></TeX></label>
+                  <label className="label"><TeX math="\gamma="/></label>
                 </div>
                 <div className="field-body">
                   <div className="field">
@@ -157,10 +156,14 @@ const KuramotoModelPage = () => {
           <div>
             <TeX math="N" /> 体の振動子からなる蔵本モデルは次の微分方程式で表される。
             <TeX math="\frac{d\theta_i(t)}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^N \sin{( \theta_j(t) - \theta_i(t) ) }, \qquad i=1,2, ..., N \tag{1}" block />
-            <TeX math="\theta_i, \omega_i"></TeX> は <TeX math="i"></TeX> 番目の振動子の位相と自然振動数、<TeX math="K"></TeX> は結合強度を意味する。
+            <TeX math="\theta_i, \omega_i" /> は <TeX math="i" /> 番目の振動子の位相と自然振動数、<TeX math="K" /> は結合強度を意味する。
 
-            自然振動数 <TeX math="\omega_i"></TeX> は確率密度関数 <TeX math="g(\omega)"></TeX> に従う。
-            今回は、コーシー分布 <TeX math="g(\omega; \omega_0, \gamma)"></TeX> を考える。
+            自然振動数 <TeX math="\omega_i" /> は確率密度関数 <TeX math="g(\omega)" /> に従う。
+            今回のシミュレーションでは、コーシー分布 <TeX math="g(\omega; \omega_0, \gamma)" /> を考える。
+            コーシー分布の確率密度関数は、
+            <TeX math="g(\omega; \omega_0, \gamma)= \frac{1}{\pi} \frac{\gamma}{(\omega - \omega_0)^2 + \gamma^2}" block />
+            で記述される。
+
           </div>
 
           <div>
@@ -172,8 +175,8 @@ const KuramotoModelPage = () => {
                 \varphi(t) &= \arctan{\left( \frac{\sum_{i=1}^N \sin{\theta_i(t)}}{\sum_{i=1}^N \cos{\theta_i(t)}} \right)}
               \end{aligned}" block>
             </TeX>
-            <TeX math="r(t)"></TeX> の大きさを見ることで、振動子が同期しているかどうかが分かる。
-            <TeX math="r(t)"></TeX> が 1 に近いほど同期しており、0 に近いほど同期していない事を表している。
+            <TeX math="r(t)" /> の大きさを見ることで、振動子が同期しているかどうかが分かる。
+            <TeX math="r(t)" /> が 1 に近いほど同期しており、0 に近いほど同期していない事を表している。
           </div>
 
           <div>
@@ -184,29 +187,42 @@ const KuramotoModelPage = () => {
               \end{aligned}
               " block />
             この導出は、方程式 
-            <TeX math="r(t)e^{\sqrt{-1} (\varphi(t) - \theta_i(t))}=\frac{1}{N}\sum_{j=1}^N e^{\sqrt{-1}(\theta_j(t) - \theta_i(t))}" block></TeX>
+            <TeX math="r(t)e^{\sqrt{-1} (\varphi(t) - \theta_i(t))}=\frac{1}{N}\sum_{j=1}^N e^{\sqrt{-1}(\theta_j(t) - \theta_i(t))}" block />
             の虚部だけ考えると、
-            <TeX math="r(t)\sin{(\varphi(t) - \theta_i(t))} = \frac{1}{N}\sum_{j=1}^N \sin{(\theta_j(t) - \theta_i(t))}" block></TeX>
+            <TeX math="r(t)\sin{(\varphi(t) - \theta_i(t))} = \frac{1}{N}\sum_{j=1}^N \sin{(\theta_j(t) - \theta_i(t))}" block />
             が得られるので、これを (1) 式に代入すれば良い。
+          </div>
+
+          <div>
+            <TeX math="g(\omega)"></TeX> がコーシー分布のときに、<TeX math="N\rightarrow \infty" /> の <TeX math="r(t)" /> の値は解析的に求まることが知られている。
+            結果だけ以下に書いておく。
+            <TeX math="
+              \begin{aligned}
+                r &=\sqrt{1.0 - \frac{K_c}{K}} \qquad (K_c < K)\\
+                K_c &= 2\gamma
+              \end{aligned}
+            " block></TeX>
           </div>
 
           <h2>数値シミュレーション</h2>
           <div>
             常微分方程式の数値解法の一つにオイラー法がある。
             (1) 式に前進オイラー法を適用すると、
-            <TeX math="\theta_{i}^{t} = \theta_i^{t-1} + \delta t \times \left\{ \omega_i + \frac{K}{N}\sum_{j=1}^N \sin{(\theta_j^{t-1} - \theta_i^{t-1})} \right\}" block></TeX>
+            <TeX math="\theta_{i}^{t} = \theta_i^{t-1} + \delta t \times \left\{ \omega_i + \frac{K}{N}\sum_{j=1}^N \sin{(\theta_j^{t-1} - \theta_i^{t-1})} \right\}" block />
             が得られる。
-            <TeX math="\theta_i^t"></TeX> は時刻 <TeX math="t"></TeX> における <TeX math="i"></TeX> 番目の振動子の位相、<TeX math="\delta t"></TeX> は時間幅である。これを愚直に実装すると、1ステップあたりの計算量は <TeX math="O(N^2)"></TeX> になる。
+            <TeX math="\theta_i^t" /> は時刻 <TeX math="t" /> における <TeX math="i"/> 番目の振動子の位相、<TeX math="\delta t" /> は時間幅である。これを愚直に実装すると、1ステップあたりの計算量は <TeX math="O(N^2)" /> になる。
           </div>
           <div>
             (3) 式に前進オイラー法を適用すると、
-            <TeX math="\theta_{i}^{t} = \theta_i^{t-1} + \delta t \times \left\{ \omega_i + K \times r(t) \sin{\left( \varphi(t) - \theta_i(t) \right) } \right\}" block></TeX>
-            が得られる。この場合、1ステップあたりの計算量は <TeX math="O(N)"></TeX> になる。
+            <TeX math="\theta_{i}^{t} = \theta_i^{t-1} + \delta t \times \left\{ \omega_i + K \times r(t) \sin{\left( \varphi(t) - \theta_i(t) \right) } \right\}" block />
+            が得られる。この場合、1ステップあたりの計算量は <TeX math="O(N)" /> になる。
           </div>
 
           <h2>参考</h2>
           <ul>
             <li><a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2020/pdf/yoneda_ryosuke.pdf">米田亮介, "蔵本モデルにおける臨界指数" (2020)</a></li>
+            <li><a href="https://www.jstage.jst.go.jp/article/sicejl/55/4/55_335/_article/-char/ja/">中尾 裕也, "結合位相振動子系の安定性と同期現象" (2016)</a></li>
+            <li>S. H. Strogatz, "From Kuramoto to Crawford: exploring the onset of synchronization in populations of coupled oscillators", Physica 143D, 1 (2000)</li>
           </ul>
         </div>
       </div>
