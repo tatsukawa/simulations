@@ -11,6 +11,7 @@ const KuramotoModelPage = () => {
   const [K, setK] = useState(2);
   const [w0, setW0] = useState(0);
   const [gamma, setGamma] = useState(0);
+  const [dt, setDt] = useState(0.01);
   const [isRunning, setIsRunning] = useState(false);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | number>(0)
 
@@ -40,6 +41,13 @@ const KuramotoModelPage = () => {
     let _gamma: number = Number(e.target.value);
     setGamma(_gamma);
     refOscillatorViewer.current?.setGamma(_gamma);
+  }
+
+  // Cauchy Distribution
+  let updateDt = (e: any) => {
+    let _dt: number = Number(e.target.value);
+    setDt(_dt);
+    refOscillatorViewer.current?.setDt(_dt);
   }
 
   // timer 
@@ -73,79 +81,104 @@ const KuramotoModelPage = () => {
 
         <div className="column is-2 is-offset-1">
           <div className="card">
-          <div className="card-content">
-            <div className="field">
-              <label className="label">振動子数</label>
-  
-              <div className="field is-horizontal">
-                <div className="field-label is-normal">
-                  <label className="label"><TeX math="N="/></label>
-                </div>
-                <div className="field-body">
-                  <div className="field">
-                    <div className="control">
-                      <input className="input" type="number" placeholder="10" min="1" max="100" defaultValue={N} onChange={updateN} />
+
+            <header className="card-header">
+              <p className="card-header-title">
+                ハイパーパラメータ
+              </p>
+            </header>
+
+            <div className="card-content">
+
+              <div className="field">
+                <label className="label">振動子数</label>
+                <div className="field is-horizontal">
+                  <div className="field-label is-normal">
+                    <label className="label"><TeX math="N="/></label>
+                  </div>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control">
+                        <input className="input" type="number" placeholder="10" min="1" max="100" defaultValue={N} onChange={updateN} />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-  
+    
+              <div className="field">
+                <label className="label">結合強度</label>
+    
+                <div className="field is-horizontal">
+                  <div className="field-label is-normal">
+                    <label className="label"><TeX math="K="/></label>
+                  </div>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control">
+                        <input className="input" type="number" placeholder="10.0" min="0" max="100" defaultValue={K} onChange={updateK} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div className="field">
+                <label className="label">
+                  コーシー分布<br />
+                </label>
+    
+                <div className="field is-horizontal">
+                  <div className="field-label is-normal">
+                    <label className="label"><TeX math="\omega_0="/></label>
+                  </div>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control">
+                        <input className="input" type="number" placeholder="0.0" min="-10" max={10} defaultValue={0} onChange={updateW0} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div className="field is-horizontal">
+                  <div className="field-label is-normal">
+                    <label className="label"><TeX math="\gamma="/></label>
+                  </div>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control">
+                        <input className="input" type="number" placeholder="0.0" min="-10" max="10" defaultValue={1.0} onChange={updateGamma} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="field">
+                <label className="label">時間幅</label>
+                <div className="field is-horizontal">
+                  <div className="field-label is-normal">
+                    <label className="label"><TeX math="\delta t="/></label>
+                  </div>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control">
+                        <input className="input" type="number" placeholder="0.01" min="0.001" max="100" defaultValue={dt} onChange={updateDt} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-  
-            <div className="field">
-              <label className="label">結合強度</label>
-  
-              <div className="field is-horizontal">
-                <div className="field-label is-normal">
-                  <label className="label"><TeX math="K="/></label>
-                </div>
-                <div className="field-body">
-                  <div className="field">
-                    <div className="control">
-                      <input className="input" type="number" placeholder="10.0" min="0" max="100" defaultValue={K} onChange={updateK} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <div className="field">
-              <label className="label">
-                コーシー分布<br />
-              </label>
-  
-              <div className="field is-horizontal">
-                <div className="field-label is-normal">
-                  <label className="label"><TeX math="\omega_0="/></label>
-                </div>
-                <div className="field-body">
-                  <div className="field">
-                    <div className="control">
-                      <input className="input" type="number" placeholder="0.0" min="-10" max={10} defaultValue={0} onChange={updateW0} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-              <div className="field is-horizontal">
-                <div className="field-label is-normal">
-                  <label className="label"><TeX math="\gamma="/></label>
-                </div>
-                <div className="field-body">
-                  <div className="field">
-                    <div className="control">
-                      <input className="input" type="number" placeholder="0.0" min="-10" max="10" defaultValue={1.0} onChange={updateGamma} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <footer className="card-footer">
-            <button className="card-footer-item button is-success" onClick={initModel}>初期化</button>
-            <button className={"card-footer-item button is-link " + (isRunning ? "is-loading" : "")} onClick={startTimer}>実行</button>
-            <button className="card-footer-item button is-danger" onClick={pauseTimer}>停止</button>
-          </footer>
+
+            <footer className="card-footer">
+              <button className="card-footer-item button is-success" onClick={initModel}>初期化</button>
+              <button className={"card-footer-item button is-link " + (isRunning ? "is-loading" : "")} onClick={startTimer}>実行</button>
+              <button className="card-footer-item button is-danger" onClick={pauseTimer}>停止</button>
+            </footer>
+
           </div>
         </div>
       </div>
@@ -198,7 +231,7 @@ const KuramotoModelPage = () => {
             結果だけ以下に書いておく。
             <TeX math="
               \begin{aligned}
-                r &=\sqrt{1.0 - \frac{K_c}{K}} \qquad (K_c < K)\\
+                r &=\sqrt{1.0 - \frac{K_c}{K}} \qquad (K_c < K\\
                 K_c &= 2\gamma
               \end{aligned}
             " block></TeX>

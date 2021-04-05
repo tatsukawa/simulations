@@ -14,10 +14,10 @@ class KuramotoModel {
     public iteration: number;
     public g: CauchyDist;
 
-    constructor(N: number, K: number, w0: number, gamma: number) {
+    constructor(N: number, K: number, w0: number, gamma: number, dt: number) {
         this.N = N;
         this.K = K;
-        this.dt = 0.01;
+        this.dt = dt;
         this.iteration = 0;
         this.limit_size = 100;
         this.oscillators = [];

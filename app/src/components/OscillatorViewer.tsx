@@ -34,7 +34,7 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
     this.center = {x:0, y:0};
     this.radius = 0;
 
-    let model = new KuramotoModel(10, 2, 0, 1);
+    let model = new KuramotoModel(10, 2, 0, 1, 0.01);
 
     this.state = {
       model: model,
@@ -48,7 +48,8 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
       this.state.model.N, 
       this.state.model.K, 
       this.state.model.g.omega0, 
-      this.state.model.g.gamma
+      this.state.model.g.gamma,
+      this.state.model.dt
     );
 
     this.setState({
@@ -63,7 +64,8 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
       N, 
       this.state.model.K, 
       this.state.model.g.omega0, 
-      this.state.model.g.gamma
+      this.state.model.g.gamma,
+      this.state.model.dt
     );
 
     this.setState({
@@ -83,7 +85,8 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
       this.state.model.N, 
       this.state.model.K, 
       w0,
-      this.state.model.g.gamma
+      this.state.model.g.gamma,
+      this.state.model.dt
     );
 
     this.setState({
@@ -96,7 +99,8 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
       this.state.model.N, 
       this.state.model.K, 
       this.state.model.g.omega0, 
-      gamma
+      gamma,
+      this.state.model.dt
     );
 
     this.setState({
@@ -104,6 +108,19 @@ class OscillatorViewer extends React.Component<OscillatorProps, OscillatorState>
     });
   }
 
+  setDt(dt: number) {
+    let model = new KuramotoModel(
+      this.state.model.N, 
+      this.state.model.K, 
+      this.state.model.g.omega0, 
+      this.state.model.g.gamma,
+      dt
+    );
+
+    this.setState({
+      model: model
+    });
+  }
   
   update() {
     this.state.model.run();
